@@ -13,9 +13,3 @@
     % }
   % }
 </ul>
-
-<hr />
-<pre>
-% use Data::Dumper; $Data::Dumper::Sortkeys=1; my $d = Dumper $system;
-<%= $d %>
-</pre>

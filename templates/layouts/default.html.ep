@@ -1,5 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head><title><%= title %></title></head>
-  <body><%= content %></body>
+  <head>
+    <title><%= title %></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://unpkg.com/chota@latest">
+    <script src="https://unpkg.com/feather-icons"></script>
+  </head>
+  <body>
+    <div class="row">
+      <div class="col">  </div>
+      <div class="col">  </div>
+      <div class="col">  </div>
+    </div>
+    <div class="row">
+      <div class="col">  </div>
+      <div class="col"><a href="/my/agent"><i data-feather="home">Home</i></a></div>
+      <div class="col">:: 🚀 Startraders 🚀 ::</div>
+    </div>
+    <div class="row">
+      <div class="col">  </div>
+      <div class="col"><%= content %></div>
+      <div class="col"> </div>
+    </div>
+    <div class="row">
+       <div class="col">
+         <p>
+           % my $s = $self->stash;
+           <pre>
+             <%= dumper $s %>
+           </pre>
+         </p>
+       </div>
+    </div>
+  </body>
+  <script>
+    feather.replace()
+  </script> 
 </html>

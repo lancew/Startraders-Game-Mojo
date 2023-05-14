@@ -10,9 +10,3 @@
 <p>
   <b>Nav</b>: Status: <%= $ship->{nav}{status} %>, System: <%= $ship->{nav}{waypointSymbol} %>.
 </p>
-
-<hr />
-<pre>
-% use Data::Dumper; $Data::Dumper::Sortkeys=1; my $d = Dumper $ship;
-<%= $d %>
-</pre>
