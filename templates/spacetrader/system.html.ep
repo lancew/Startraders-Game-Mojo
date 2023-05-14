@@ -1,0 +1,21 @@
+% layout 'default';
+% title 'System';
+
+<h2>System: <%= $system->[0]{systemSymbol} %></h2>
+
+<h3>Waypoints</h3>
+<ul>
+  % for my $w (@{$system}) {
+    <li> <a href="/waypoints/<%= $w->{symbol} %>"><%= $w->{symbol} %></a> (<%= $w->{type} %>)
+    <br/><b>Traits: </b>
+    % for my $t (@{$w->{traits}}) {
+      <%= $t->{name} %>, 
+    % }
+  % }
+</ul>
+
+<hr />
+<pre>
+% use Data::Dumper; $Data::Dumper::Sortkeys=1; my $d = Dumper $system;
+<%= $d %>
+</pre>

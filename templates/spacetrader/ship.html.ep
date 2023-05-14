@@ -1,0 +1,18 @@
+% layout 'default';
+% title 'Ship';
+
+
+
+<h2>Ship: <%= $ship->{registration}{name} %> (<%= $ship->{registration}{role} %>)</h2>
+<p>
+  Fuel: <%= $ship->{fuel}{current} %> / <%= $ship->{fuel}{capacity} %>
+</p>
+<p>
+  <b>Nav</b>: Status: <%= $ship->{nav}{status} %>, System: <%= $ship->{nav}{waypointSymbol} %>.
+</p>
+
+<hr />
+<pre>
+% use Data::Dumper; $Data::Dumper::Sortkeys=1; my $d = Dumper $ship;
+<%= $d %>
+</pre>

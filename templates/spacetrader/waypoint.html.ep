@@ -1,0 +1,27 @@
+% layout 'default';
+% title 'Waypoint';
+
+<h2>Waypoint: <%= $waypoint->{symbol}%></h2>
+<p>
+  <b>Traits:</b>
+  % for my $t (@{$waypoint->{traits}}) {
+    <%= $t->{name}%>,
+  % }
+</p>
+
+<p>
+  <b>System:</b> <a href="/system/<%= $waypoint->{systemSymbol} %>"><%= $waypoint->{systemSymbol} %></a>
+</p>
+
+<h3>Orbitals</h3>
+<ul>
+% for my $o (@{$waypoint->{orbitals}}) {
+  <li> <a href="/waypoints/<%= $o->{symbol} %>"><%= $o->{symbol} %></a>
+% }  
+</ul>
+
+<hr />
+<pre>
+% use Data::Dumper; $Data::Dumper::Sortkeys=1; my $d = Dumper $waypoint;
+<%= $d %>
+</pre>

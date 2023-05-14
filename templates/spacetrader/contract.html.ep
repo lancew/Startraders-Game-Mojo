@@ -1,0 +1,45 @@
+% layout 'default';
+% title 'Contract';
+
+
+
+<h2>Contract: <%= $contract->{id} %></h2>
+<p>
+<b>Type:</b> <%= $contract->{type} %>
+</p>
+<p>
+% my $accepted = $contract->{accepted} ? 'Yes' : 'No'; 
+<b>Accepted:</b> <%= $accepted %>
+% unless ($accepted eq 'Yes') {
+  <form method="post">
+    <button name='accept contract'>Accept Contract</button>
+  </form>
+% }  
+</p>
+
+<h3>Terms</h3>
+<table>
+   <tr>
+     <td>Deadline</td><td><%= $contract->{terms}{deadline}%></td>
+   </tr>  
+   <tr>
+     <td>Destination</td><td><a href="/waypoints/<%= $contract->{terms}{deliver}[0]{destinationSymbol} %>"><%= $contract->{terms}{deliver}[0]{destinationSymbol}%></a></td>
+   </tr>  
+   <tr>
+     <td>Commodity</td><td><%= $contract->{terms}{deliver}[0]{tradeSymbol}%></td>
+   </tr>  
+   <tr>
+     <td>Units</td><td><%= $contract->{terms}{deliver}[0]{unitsFulfilled}%>/<%= $contract->{terms}{deliver}[0]{unitsRequired}%></td>
+   </tr>  
+   <tr>
+     <td>Payment</td><td>On acceptance: <%= $contract->{terms}{payment}{onAccepted}%>
+                    <br/>On fulfillment: <%= $contract->{terms}{payment}{onFulfilled}%>
+     </td>
+   </tr>  
+</table>
+
+<hr />
+<pre>
+% use Data::Dumper; $Data::Dumper::Sortkeys=1; my $d = Dumper $contract;
+<%= $d %>
+</pre>

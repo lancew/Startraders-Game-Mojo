@@ -1,0 +1,27 @@
+% layout 'default';
+% title 'My Agent';
+
+<h2>Agent: <%= $agent->{symbol} %></h2>
+
+<ul>
+  <li> Headquarters: <a href="/waypoints/<%= $agent->{headquarters} %>"><%= $agent->{headquarters} %></a>
+  <li> Credits: <%= $agent->{credits} %>
+</ul>
+
+<h3>Ships</h3>
+<ul>
+<pre>
+  % use Data::Dumper; warn Dumper $ships;
+</pre>
+ % for my $ship (@$ships) {
+   <li> <a href="/my/ships/<%= $ship->{registration}{name} %>"><%= $ship->{registration}{name} %></a> (<%= $ship->{registration}{role} %>)
+ % } 
+</ul>
+
+<h3>Contracts</h3>
+<ul>
+% for my $contract (@$contracts) {
+  <li> ID: <a href='/my/contracts/<%= $contract->{id} %>'><%= $contract->{id} %></a>
+    <br /> (Deadline:<%= $contract->{terms}{deadline} %>, <%= $contract->{type} %>)
+% }
+</ul>
