@@ -10,9 +10,6 @@
 
 <h3>Ships</h3>
 <ul>
-<pre>
-  % use Data::Dumper; warn Dumper $ships;
-</pre>
  % for my $ship (@$ships) {
    <li> <a href="/my/ships/<%= $ship->{registration}{name} %>"><%= $ship->{registration}{name} %></a> (<%= $ship->{registration}{role} %>)
  % } 

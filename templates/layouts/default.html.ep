@@ -25,10 +25,12 @@
     <div class="row">
        <div class="col">
          <p>
-           % my $s = $self->stash;
+          % if ($self->config('dumper_mode')) {
+           % my $s = $self->stash();
            <pre>
              <%= dumper $s %>
            </pre>
+          % } 
          </p>
        </div>
     </div>

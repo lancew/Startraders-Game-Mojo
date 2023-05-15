@@ -23,8 +23,6 @@ sub ship ($self) {
     my $waypoint;
     if ($ship->{nav}{status} eq 'IN_ORBIT') {
       $waypoint = $api->get_waypoint($ship->{nav}{waypointSymbol});
-      use Data::Dumper;
-      warn Dumper $waypoint;
       $self->stash( waypoint => $waypoint );
     }
 
