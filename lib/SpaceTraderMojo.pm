@@ -29,7 +29,9 @@ sub startup ($self) {
   $r->get('/system/:system_id')->to('Spacetrader#system');
 
   $r->get('/navigate/:waypoint_id')->to('Spacetrader#navigate');
-  $r->get('/navigate/:waypoint_id/:ship_id')->to('Spacetrader#navigate_ship');
+  $r->get('/navigate_to/:waypoint_id/:ship_id')->to('Spacetrader#navigate_ship');
+
+  $r->get('/shipyard/:waypoint_id')->to('Spacetrader#shipyard');
 }
 
 1;

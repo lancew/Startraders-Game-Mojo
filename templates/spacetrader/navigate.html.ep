@@ -14,7 +14,7 @@
 
 % for my $ship (@$ships) {
 <p>
-  <form method="get" action="/navigate/<%= $waypoint->{symbol} %>/<%= $ship->{symbol} %>">
+  <form method="get" action="/navigate_to/<%= $waypoint->{symbol} %>/<%= $ship->{symbol} %>">
     <button><%= $ship->{symbol} %></button>
   </form>  
 </p>

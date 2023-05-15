@@ -17,7 +17,16 @@ sub myagent ($self) {
 sub ship ($self) {
     my $api   = WebService::Spacetraders->new;
 
-    $self->stash( ship => $api->get_my_ships($self->param('ship_name')));
+    my $ship = $api->get_my_ships($self->param('ship_name'));
+    $self->stash( ship => $ship );
+
+    my $waypoint;
+    if ($ship->{nav}{status} eq 'IN_ORBIT') {
+      $waypoint = $api->get_waypoint($ship->{nav}{waypointSymbol});
+      use Data::Dumper;
+      warn Dumper $waypoint;
+      $self->stash( waypoint => $waypoint );
+    }
 
     $self->render;
 }
@@ -64,12 +73,20 @@ sub navigate ($self) {
 
 sub navigate_ship ($self) {
     my $api   = WebService::Spacetraders->new;
-warn "-----navigate_ship";
-#    $api->navigate(
+    $api->navigate(
+      $self->param('ship_id'),
+      $self->param('waypoint_id'),
+    );
 
-#    );
+    $self->redirect_to('/ships/' . $self->param('ship_id'));
+}
 
-    $self->redirect_to('/waypoints/' . $self->param('waypoint_id'));
+sub shipyard ($self) {
+    my $api   = WebService::Spacetraders->new;
+
+    $self->stash( yard => $api->get_shipyard( $self->param('waypoint_id') ) );
+
+    $self->render;
 }
 
 1;

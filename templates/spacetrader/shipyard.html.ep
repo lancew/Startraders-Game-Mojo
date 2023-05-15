@@ -1,0 +1,17 @@
+% layout 'default';
+% title 'Shipyard';
+
+<h2>Shipyard: <%= param('waypoint_id') %></h2>
+
+<ul>
+    % for my $ship (@{$yard->{ships}}) {
+    <li> <%= $ship->{name}%> <b>Price:</b> <%= $ship->{purchasePrice}%>
+    %}
+</ul>
+
+<h3>Transactions</h3>
+<ul>
+    % for my $t (@{$yard->{transactions}}) {
+    <li> <%= $t->{agentSymbol} %>, <%= $t->{shipSymbol} %>, <%= $t->{price} %>
+    %}
+</ul>

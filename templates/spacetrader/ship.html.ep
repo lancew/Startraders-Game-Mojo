@@ -10,3 +10,17 @@
 <p>
   <b>Nav</b>: Status: <%= $ship->{nav}{status} %>, System: <%= $ship->{nav}{waypointSymbol} %>.
 </p>
+
+% if ($ship->{nav}{status} eq 'IN_ORBIT' && $waypoint) {
+<p>
+  <b>Traits:</b>
+  % for my $t (@{$waypoint->{traits}}) {
+    % if ($t->{name} eq 'Shipyard') {
+      <a href="/shipyard/<%= $ship->{nav}{waypointSymbol} %>">🚀</a>
+    % }
+    <%= $t->{name}%>,
+  % }
+<br/>
+  (<%= $waypoint->{type} %>)
+</p>
+% }

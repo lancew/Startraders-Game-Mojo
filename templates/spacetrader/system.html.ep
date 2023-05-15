@@ -9,6 +9,9 @@
     <li> <a href="/waypoints/<%= $w->{symbol} %>"><%= $w->{symbol} %></a> (<%= $w->{type} %>)
     <br/><b>Traits: </b>
     % for my $t (@{$w->{traits}}) {
+      % if ($t->{name} eq 'Shipyard') {
+        <a href="/shipyard/<%= $w->{symbol} %>">🚀</a>
+      % }
       <%= $t->{name} %>, 
     % }
   % }
