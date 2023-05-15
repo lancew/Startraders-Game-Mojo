@@ -1,0 +1,25 @@
+% layout 'default';
+% title 'Waypoint';
+
+<h2>Waypoint: <%= $waypoint->{symbol}%></h2>
+<p>
+  <b>Traits:</b>
+  % for my $t (@{$waypoint->{traits}}) {
+    <%= $t->{name}%>,
+  % }
+<br/>
+  (<%= $waypoint->{type} %>)
+</p>
+
+
+% for my $ship (@$ships) {
+<p>
+  <form method="get" action="/navigate/<%= $waypoint->{symbol} %>/<%= $ship->{symbol} %>">
+    <button><%= $ship->{symbol} %></button>
+  </form>  
+</p>
+
+
+% }
+
+

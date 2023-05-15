@@ -15,6 +15,12 @@
   <b>System:</b> <a href="/system/<%= $waypoint->{systemSymbol} %>"><%= $waypoint->{systemSymbol} %></a>
 </p>
 
+<p>
+  <form method="get" action="/navigate/<%= $waypoint->{symbol} %>">
+    <button>Navigate to this waypoint</button>
+  </form>  
+</p>
+
 <h3>Orbitals</h3>
 <ul>
 % for my $o (@{$waypoint->{orbitals}}) {

@@ -52,4 +52,24 @@ sub system ($self) {
 
     $self->render;
 }
+
+sub navigate ($self) {
+    my $api   = WebService::Spacetraders->new;
+
+    $self->stash( waypoint => $api->get_waypoint($self->param('waypoint_id')));
+    $self->stash( ships    => $api->get_my_ships );
+
+    $self->render;
+}
+
+sub navigate_ship ($self) {
+    my $api   = WebService::Spacetraders->new;
+warn "-----navigate_ship";
+#    $api->navigate(
+
+#    );
+
+    $self->redirect_to('/waypoints/' . $self->param('waypoint_id'));
+}
+
 1;
