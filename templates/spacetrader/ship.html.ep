@@ -5,13 +5,14 @@
 
 <h2>Ship: <%= $ship->{registration}{name} %> (<%= $ship->{registration}{role} %>)</h2>
 <p>
-  Fuel: <%= $ship->{fuel}{current} %> / <%= $ship->{fuel}{capacity} %>
+  <b>Fuel</b>: <%= $ship->{fuel}{current} %> / <%= $ship->{fuel}{capacity} %>
 </p>
 <p>
-  <b>Nav</b>: Status: <%= $ship->{nav}{status} %>, System: <%= $ship->{nav}{waypointSymbol} %>.
+  <b>Nav</b>: Status: <%= $ship->{nav}{status} %>, System: <a href="/waypoints/<%= $ship->{nav}{waypointSymbol} %>"><%= $ship->{nav}{waypointSymbol} %></a>.
+  <br /> <a href="/my/ships/<%= $ship->{registration}{name} %>/dock">Dock</a> | <a href="/my/ships/<%= $ship->{registration}{name} %>/orbit">Orbit</a>
 </p>
 
-% if ($ship->{nav}{status} eq 'IN_ORBIT' && $waypoint) {
+% if ($waypoint && $ship->{nav}{status} eq 'IN_ORBIT') {
 <p>
   <b>Traits:</b>
   % for my $t (@{$waypoint->{traits}}) {
@@ -24,3 +25,38 @@
   (<%= $waypoint->{type} %>)
 </p>
 % }
+
+<p>
+<b>Actions</b>: <a href="/my/ships/<%= $ship->{registration}{name} %>/extract">Extract</a> | <a href="/my/ships/<%= $ship->{registration}{name} %>/refuel">Refuel</a>
+</p>
+
+% if (my $r = flash 'result') {
+  <p>
+    <b>
+      <%= $r->{error}{message}%>
+    </b>
+  </p>
+% }
+
+<h3>Cargo</h3>
+<p>
+  <b>Capacity:</b> <%= $ship->{cargo}{units} %> / <%= $ship->{cargo}{capacity} %>
+</p>
+
+<table border=1>
+% for my $c (@{$ship->{cargo}{inventory}}) {
+      <tr>
+        <td>
+          <%= $c->{name} %> 
+        </td>
+        <td>
+          <%= $c->{units} %>
+        </td>
+        % if  ($ship->{nav}{status} eq 'DOCKED') {
+        <td>  
+            <a href="">Sell 1</a>
+        </td>
+        % } else { '' }
+      </tr>
+% }
+</table>  

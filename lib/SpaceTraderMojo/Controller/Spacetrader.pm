@@ -23,10 +23,44 @@ sub ship ($self) {
     my $waypoint;
     if ($ship->{nav}{status} eq 'IN_ORBIT') {
       $waypoint = $api->get_waypoint($ship->{nav}{waypointSymbol});
-      $self->stash( waypoint => $waypoint );
     }
+    $self->stash( waypoint => $waypoint );
 
     $self->render;
+}
+
+sub ship_dock ($self) {
+    my $api   = WebService::Spacetraders->new;
+
+    my $res = $api->dock($self->param('ship_name'));
+
+    $self->redirect_to('/my/ships/'. $self->param('ship_name'));
+}
+
+sub ship_refuel ($self) {
+    my $api   = WebService::Spacetraders->new;
+
+    my $res = $api->refuel($self->param('ship_name'));
+
+    $self->redirect_to('/my/ships/'. $self->param('ship_name'));
+}
+
+sub ship_orbit ($self) {
+    my $api   = WebService::Spacetraders->new;
+
+    my $res = $api->orbit($self->param('ship_name'));
+
+    $self->redirect_to('/my/ships/'. $self->param('ship_name'));
+}
+
+sub ship_extract ($self) {
+    my $api   = WebService::Spacetraders->new;
+
+    my $res = $api->extract($self->param('ship_name'));
+
+    $self->flash(result => $res);
+
+    $self->redirect_to('/my/ships/'. $self->param('ship_name'));
 }
 
 sub contract ($self) {
@@ -76,7 +110,7 @@ sub navigate_ship ($self) {
       $self->param('waypoint_id'),
     );
 
-    $self->redirect_to('/ships/' . $self->param('ship_id'));
+    $self->redirect_to('/my/ships/' . $self->param('ship_id'));
 }
 
 sub shipyard ($self) {
