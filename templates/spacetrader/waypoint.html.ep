@@ -27,3 +27,4 @@
   <li> <a href="/waypoints/<%= $o->{symbol} %>"><%= $o->{symbol} %></a>
 % }  
 </ul>
+

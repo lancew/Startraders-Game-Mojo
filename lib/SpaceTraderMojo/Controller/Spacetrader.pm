@@ -20,11 +20,15 @@ sub ship ($self) {
     my $ship = $api->get_my_ships($self->param('ship_name'));
     $self->stash( ship => $ship );
 
-    my $waypoint;
+    my ($waypoint,$market);
     if ($ship->{nav}{status} eq 'IN_ORBIT') {
       $waypoint = $api->get_waypoint($ship->{nav}{waypointSymbol});
     }
+    if ($ship->{nav}{status} eq 'DOCKED') {
+      $market = $api->get_market($ship->{nav}{waypointSymbol});
+    }
     $self->stash( waypoint => $waypoint );
+    $self->stash( market   => $market );
 
     $self->render;
 }
@@ -57,6 +61,20 @@ sub ship_extract ($self) {
     my $api   = WebService::Spacetraders->new;
 
     my $res = $api->extract($self->param('ship_name'));
+
+    $self->flash(result => $res);
+
+    $self->redirect_to('/my/ships/'. $self->param('ship_name'));
+}
+
+sub ship_sell ($self) {
+    my $api   = WebService::Spacetraders->new;
+
+    my $res = $api->sell(
+      ship => $self->param('ship_name'),
+      symbol => $self->param('symbol'),
+      units => $self->param('units'),
+    );
 
     $self->flash(result => $res);
 

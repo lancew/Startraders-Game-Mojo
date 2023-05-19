@@ -25,6 +25,7 @@ sub startup ($self) {
   $r->get('/my/ships/:ship_name/refuel')->to('Spacetrader#ship_refuel');
   $r->get('/my/ships/:ship_name/orbit')->to('Spacetrader#ship_orbit');
   $r->get('/my/ships/:ship_name/extract')->to('Spacetrader#ship_extract');
+  $r->get('/my/ships/:ship_name/sell/:symbol/:units')->to('Spacetrader#ship_sell');
 
   $r->get('/my/contracts/:contract_id')->to('Spacetrader#contract');
   $r->post('/my/contracts/:contract_id')->to('Spacetrader#contract_accept');
