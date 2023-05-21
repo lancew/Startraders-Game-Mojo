@@ -69,7 +69,8 @@
         </td>
         % if  ($ship->{nav}{status} eq 'DOCKED') {
         <td>  
-            <a href="/my/ships/<%= $ship->{registration}{name} %>/sell/<%= $c->{symbol} %>/1">Sell 1</a>
+            <a href="/my/ships/<%= $ship->{registration}{name} %>/sell/<%= $c->{symbol} %>/1">Sell 1</a> / 
+            <a href="/my/ships/<%= $ship->{registration}{name} %>/sell/<%= $c->{symbol} %>/<%= $c->{units} %>">ALL</a>
         </td>
         % } else { '' }
       </tr>
