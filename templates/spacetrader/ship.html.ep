@@ -34,7 +34,7 @@
 % }
 
 <p>
-<b>Actions</b>: <a href="/my/ships/<%= $ship->{registration}{name} %>/extract">Extract</a> | <a href="/my/ships/<%= $ship->{registration}{name} %>/refuel">Refuel</a>
+<b>Actions</b>: <a href="/my/ships/<%= $ship->{registration}{name} %>/extract">Extract</a> |<a href="/my/ships/<%= $ship->{registration}{name} %>/extract/to/full">Extract to full</a> | <a href="/my/ships/<%= $ship->{registration}{name} %>/refuel">Refuel</a>
 </p>
 
 % if (my $r = flash 'result') {

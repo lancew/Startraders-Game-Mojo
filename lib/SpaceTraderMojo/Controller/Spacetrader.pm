@@ -67,6 +67,14 @@ sub ship_extract ($self) {
     $self->redirect_to('/my/ships/'. $self->param('ship_name'));
 }
 
+sub ship_extract_to_full ($self) {
+    my $api   = WebService::Spacetraders->new;
+    
+    $self->minion->enqueue(extract => [$self->param('ship_name')]);
+
+    $self->redirect_to('/my/ships/'. $self->param('ship_name'));
+}
+
 sub ship_sell ($self) {
     my $api   = WebService::Spacetraders->new;
 
