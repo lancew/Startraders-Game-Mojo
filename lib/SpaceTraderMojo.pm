@@ -53,8 +53,13 @@ sub startup ($self) {
     $job->note(result => Dumper $res);
 
     if ($res->{cargo}{capacity} > $res->{cargo}{units}) {
-      $self->minion->enqueue('extract', [@args], {delay => 70});
+      $self->minion->enqueue('extract', [@args], {delay => $res->{cooldown}{totalSeconds}});
     }
+
+    if ($res->{error}) {
+      $job->fail($res->{error}{message});
+    }
+
   });
 
 }
