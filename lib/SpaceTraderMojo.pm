@@ -12,8 +12,19 @@ sub startup ($self) {
   # Configure the application
   $self->secrets($config->{secrets});
 
-  $self->plugin(Minion => { SQLite => 'sqlite:test.db' });
+  $self->plugin(Minion => { SQLite => 'sqlite:spacetraders.db' });
   $self->plugin('Minion::Admin');
+
+  $self->hook(before_dispatch => sub ($c) {
+    my $job_count = 0;
+
+    my $jobs = $self->minion->jobs({states => ['inactive']});
+    while (my $info = $jobs->next) {
+        $job_count++;
+    }
+
+    $c->stash( queue_jobs => $job_count );
+  });
   
   # Router
   my $r = $self->routes;
@@ -23,6 +34,7 @@ sub startup ($self) {
     $c->redirect_to('/my/agent');
   });
 
+  $r->get('/game')->to('Spacetrader#game');
   $r->get('/my/agent')->to('Spacetrader#myagent');
   $r->get('/my/ships/:ship_name')->to('Spacetrader#ship');
   $r->get('/my/ships/:ship_name/dock')->to('Spacetrader#ship_dock');
@@ -55,6 +67,7 @@ sub startup ($self) {
     if ($res->{cargo}{capacity} > $res->{cargo}{units}) {
       $self->minion->enqueue('extract', [@args], {delay => $res->{cooldown}{totalSeconds}});
     }
+    
 
     if ($res->{error}) {
       $job->fail($res->{error}{message});

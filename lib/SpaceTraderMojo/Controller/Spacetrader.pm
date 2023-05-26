@@ -14,6 +14,16 @@ sub myagent ($self) {
     $self->render;
 }
 
+sub game ($self) {
+    my $api   = WebService::Spacetraders->new;
+
+    $self->stash(
+        game => $api->get_status,
+    );
+    $self->render;
+}
+
+
 sub ship ($self) {
     my $api   = WebService::Spacetraders->new;
 
@@ -27,6 +37,8 @@ sub ship ($self) {
     if ($ship->{nav}{status} eq 'DOCKED') {
       $market = $api->get_market($ship->{nav}{waypointSymbol});
     }
+
+
     $self->stash( waypoint => $waypoint );
     $self->stash( market   => $market );
 

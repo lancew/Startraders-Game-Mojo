@@ -15,11 +15,20 @@
     <div class="row">
       <div class="col">  </div>
       <div class="col"><a href="/my/agent"><i data-feather="home">Home</i></a></div>
-      <div class="col">:: 🚀 Startraders 🚀 ::</div>
+      <div class="col"><a href="/game">:: 🚀 SpaceTraders 🚀 ::</a></div>
     </div>
     <div class="row">
       <div class="col">  </div>
-      <div class="col"><%= content %></div>
+      <div class="col">
+        % if ($queue_jobs) {
+          <p>
+            <i data-feather="info"></i>
+            Robot minion working
+            <i data-feather="info"></i>
+          </p>
+        % }
+        <%= content %>
+      </div>
       <div class="col"> </div>
     </div>
     <div class="row">

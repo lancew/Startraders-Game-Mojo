@@ -1,2 +1,0 @@
-requires 'Mojolicious';
-requires 'WebService::Spacetraders';

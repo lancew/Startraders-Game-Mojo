@@ -1,0 +1,21 @@
+% layout 'default';
+% title 'Game Status';
+
+<h2>Game Status</h2>
+<h3>Server status</h3>
+<p><%= $game->{status} %></p>
+
+<h3>Next server reset</h3>
+% my $date = Mojo::Date->new($game->{serverResets}{next});
+<p><%= $date->to_string %></p>
+
+<h3>Announcements</h3>
+<ul>
+  % for my $a ( @{ $game->{announcements} } ) {
+    <li><b><%= $a->{title} %> </b>
+        <br /><%= $a->{body}%>
+  % }
+
+</ul>
+
+
