@@ -38,7 +38,6 @@ sub ship ($self) {
       $market = $api->get_market($ship->{nav}{waypointSymbol});
     }
 
-
     $self->stash( waypoint => $waypoint );
     $self->stash( market   => $market );
 
@@ -82,7 +81,14 @@ sub ship_extract ($self) {
 sub ship_extract_to_full ($self) {
     my $api   = WebService::Spacetraders->new;
     
-    $self->minion->enqueue(extract => [$self->param('ship_name')]);
+    my $res = $api->extract($self->param('ship_name'));
+    $self->flash(result => $res);
+
+    $self->minion->enqueue(
+        extract => [$self->param('ship_name')] => {
+            delay => $res->{cooldown}{totalSeconds},
+        }
+    );
 
     $self->redirect_to('/my/ships/'. $self->param('ship_name'));
 }
