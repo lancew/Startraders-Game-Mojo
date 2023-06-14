@@ -1,1 +1,4 @@
 .envrc
+spacetraders.db
+spacetraders.db-shm
+spacetraders.db-wal
